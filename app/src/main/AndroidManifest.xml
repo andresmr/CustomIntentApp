@@ -22,18 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Intent filter for custom action -->
             <intent-filter>
                 <action android:name="org.dhis2.customintent.ACTION_PROCESS_TEXT" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
-            </intent-filter>
 
-            <!-- Intent filter for sharing text -->
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.dhis2.customintent.ACTION_PROCESS_TEXT"  />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <data android:mimeType="*/*" />
             </intent-filter>
         </activity>
     </application>

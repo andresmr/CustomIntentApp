@@ -23,10 +23,14 @@ class MainViewModel : ViewModel() {
                         intent.getStringExtra(Intent.EXTRA_TEXT)
                     } else null
                 }
+
                 "org.dhis2.customintent.ACTION_PROCESS_TEXT" -> {
-                    intent.getStringExtra(Intent.EXTRA_TEXT)
-                        ?: intent.getStringExtra("text_data")
+                    intent.getStringExtra(Intent.EXTRA_TEXT) + "\n" +
+                    intent.getBooleanExtra("boolean", false) + "\n" +
+                    intent.getIntExtra("integer", 0)
+
                 }
+
                 else -> null
             }
 
@@ -47,6 +51,7 @@ class MainViewModel : ViewModel() {
                     _uiState.value = currentState.copy(responseText = event.text)
                 }
             }
+
             is IntentUiEvent.SendResponse -> {
                 val currentState = _uiState.value
                 if (currentState is IntentUiState.Success) {
