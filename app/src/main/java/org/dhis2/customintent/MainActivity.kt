@@ -1,6 +1,5 @@
 package org.dhis2.customintent
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -56,11 +55,10 @@ class MainActivity : ComponentActivity() {
 
     private fun sendResponseToCallingApp(responseText: String) {
         val resultIntent = Intent().apply {
-            putExtra("response_text", responseText)
-            putExtra(Intent.EXTRA_TEXT, responseText)
+            putExtra("CUSTOM_RESPONSE", responseText)
         }
 
-        setResult(Activity.RESULT_OK, resultIntent)
+        setResult(RESULT_OK, resultIntent)
         finish()
     }
 }

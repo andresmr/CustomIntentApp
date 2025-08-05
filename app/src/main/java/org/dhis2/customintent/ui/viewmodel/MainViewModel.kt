@@ -27,7 +27,8 @@ class MainViewModel : ViewModel() {
                 "org.dhis2.customintent.ACTION_PROCESS_TEXT" -> {
                     intent.getStringExtra(Intent.EXTRA_TEXT) + "\n" +
                     intent.getBooleanExtra("boolean", false) + "\n" +
-                    intent.getIntExtra("integer", 0)
+                    intent.getIntExtra("integer", 0) + "\n" +
+                    intent.getStringExtra("string2")
 
                 }
 
@@ -36,7 +37,7 @@ class MainViewModel : ViewModel() {
 
             _uiState.value = IntentUiState.Success(
                 receivedText = receivedText,
-                responseText = generateDefaultResponse(receivedText)
+                responseText = generateDefaultResponse()
             )
         } catch (e: Exception) {
             _uiState.value = IntentUiState.Error("Error processing intent: ${e.message}")
@@ -65,11 +66,7 @@ class MainViewModel : ViewModel() {
         resultCallback = callback
     }
 
-    private fun generateDefaultResponse(receivedText: String?): String {
-        return if (receivedText.isNullOrBlank()) {
-            "Hello from CustomIntent app!"
-        } else {
-            "Processed: $receivedText"
-        }
+    private fun generateDefaultResponse(): String {
+        return "{\"value1\": \"ejemplo1\", \"value2\": \"ejemplo2\"}"
     }
 }
