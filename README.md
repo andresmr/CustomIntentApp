@@ -1,5 +1,11 @@
 # Custom Intent App
 
+[![CI](https://github.com/andresmr/CustomIntentApp/actions/workflows/ci.yml/badge.svg)](https://github.com/andresmr/CustomIntentApp/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/andresmr/CustomIntentApp/actions/workflows/codeql.yml/badge.svg)](https://github.com/andresmr/CustomIntentApp/actions/workflows/codeql.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Android API](https://img.shields.io/badge/API-28%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=28)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.2.0-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
+
 An Android application built with Kotlin and Jetpack Compose that demonstrates custom intent handling and inter-app communication. This app can receive text data from other applications, process it, and return responses through Android's intent system.
 
 ## 🚀 Features
@@ -169,23 +175,40 @@ The project includes both unit and instrumented tests:
 - `ExampleUnitTest.kt` - Basic unit test example
 - `ExampleInstrumentedTest.kt` - Basic instrumented test example
 
+## 🚀 CI/CD & Quality Assurance
+
+This project includes comprehensive CI/CD pipelines and quality checks:
+
+### Automated Workflows
+- **🔄 Continuous Integration**: Runs tests and builds on every push/PR
+- **🧪 Unit & Instrumented Tests**: Automated testing on multiple Android versions  
+- **🔍 Code Quality**: Lint checks, static analysis, and security scanning
+- **📦 Release Automation**: Automated APK building and GitHub releases
+- **🏷️ Auto-labeling**: Automatic issue and PR categorization
+- **⬆️ Dependency Updates**: Automated dependency updates via Dependabot
+
+### Quality Gates
+All pull requests must pass:
+- ✅ Unit tests
+- ✅ Build validation
+- ✅ Lint checks
+- ✅ Security scans
+- ✅ Code review
+
 ## 🤝 Contributing
 
-We welcome contributions! Please follow these guidelines:
+We welcome contributions! Please see our [Contributing Guide](.github/CONTRIBUTING.md) for detailed information.
 
+### Quick Start
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Follow Kotlin coding conventions
-4. Use meaningful commit messages
-5. Add tests for new functionality
-6. Ensure all tests pass
-7. Submit a pull request
+3. Follow our [coding standards](.github/CONTRIBUTING.md#coding-standards)
+4. Add tests for new functionality
+5. Ensure all CI checks pass
+6. Submit a pull request using our [PR template](.github/pull_request_template.md)
 
-### Code Style
-- Follow [Kotlin Coding Conventions](https://kotlinlang.org/docs/coding-conventions.html)
-- Use meaningful variable and function names
-- Add KDoc comments for public APIs
-- Maintain MVVM architecture patterns
+### Reporting Issues
+Please use our [issue templates](.github/ISSUE_TEMPLATE/) when reporting bugs or requesting features.
 
 ## 📄 License
 

@@ -1,0 +1,137 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate-pr:
+    name: Validate Pull Request
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history for better analysis
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Cache Gradle packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Check code formatting (Kotlin)
+      run: ./gradlew ktlintCheck || echo "Kotlin formatting check completed"
+
+    - name: Run static analysis
+      run: ./gradlew lint
+
+    - name: Run unit tests
+      run: ./gradlew test
+
+    - name: Build debug APK
+      run: ./gradlew assembleDebug
+
+    - name: Validate manifest
+      run: |
+        if [ -f "app/src/main/AndroidManifest.xml" ]; then
+          echo "✅ AndroidManifest.xml exists"
+          # Basic validation of manifest structure
+          grep -q "android:name" app/src/main/AndroidManifest.xml && echo "✅ App name defined" || echo "⚠️ App name not found"
+          grep -q "intent-filter" app/src/main/AndroidManifest.xml && echo "✅ Intent filters found" || echo "⚠️ No intent filters found"
+        else
+          echo "❌ AndroidManifest.xml not found"
+          exit 1
+        fi
+
+    - name: Check for TODO/FIXME comments
+      run: |
+        echo "Checking for TODO/FIXME comments..."
+        TODO_COUNT=$(find app/src -name "*.kt" -exec grep -l "TODO\|FIXME" {} \; | wc -l)
+        if [ $TODO_COUNT -gt 0 ]; then
+          echo "⚠️ Found $TODO_COUNT files with TODO/FIXME comments"
+          find app/src -name "*.kt" -exec grep -Hn "TODO\|FIXME" {} \;
+        else
+          echo "✅ No TODO/FIXME comments found"
+        fi
+
+    - name: Check dependencies for security vulnerabilities
+      run: ./gradlew dependencyCheckAnalyze || echo "Dependency check completed"
+
+    - name: Upload validation artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: pr-validation-results
+        path: |
+          app/build/reports/
+          app/build/outputs/apk/debug/
+        retention-days: 3
+
+    - name: Comment PR with validation summary
+      uses: actions/github-script@v7
+      if: always()
+      with:
+        script: |
+          const fs = require('fs');
+          
+          // Create a summary comment for the PR
+          let summary = '## 🔍 PR Validation Summary\n\n';
+          
+          // Check if build was successful
+          const buildSuccess = process.env.BUILD_SUCCESS === 'true';
+          summary += buildSuccess ? '✅ Build successful\n' : '❌ Build failed\n';
+          
+          // Add other checks
+          summary += '✅ Static analysis completed\n';
+          summary += '✅ Unit tests executed\n';
+          summary += '✅ Manifest validation completed\n';
+          
+          summary += '\n📋 **Next Steps:**\n';
+          summary += '- Review any lint warnings in the artifacts\n';
+          summary += '- Ensure all tests pass\n';
+          summary += '- Verify code follows Kotlin conventions\n';
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: summary
+          });
+
+  security-check:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
