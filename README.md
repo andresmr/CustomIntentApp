@@ -169,10 +169,6 @@ The project includes both unit and instrumented tests:
 - `ExampleUnitTest.kt` - Basic unit test example
 - `ExampleInstrumentedTest.kt` - Basic instrumented test example
 
-## 🎨 Screenshots
-
-*Screenshots would be added here showing the app's interface in both light and dark themes*
-
 ## 🤝 Contributing
 
 We welcome contributions! Please follow these guidelines:
