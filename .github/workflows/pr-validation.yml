@@ -9,6 +9,10 @@ jobs:
   validate-pr:
     name: Validate Pull Request
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
 
     steps:
     - name: Checkout code
@@ -23,7 +27,10 @@ jobs:
         distribution: 'temurin'
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
+      run: |
+        echo "Using GitHub Actions runner with pre-installed Android SDK"
+        echo "ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}" >> $GITHUB_ENV
+        echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}" >> $GITHUB_ENV
 
     - name: Cache Gradle packages
       uses: actions/cache@v4
@@ -87,6 +94,7 @@ jobs:
     - name: Upload validation artifacts
       uses: actions/upload-artifact@v4
       if: always()
+      continue-on-error: true
       with:
         name: pr-validation-results
         path: |
@@ -97,6 +105,7 @@ jobs:
     - name: Comment PR with validation summary
       uses: actions/github-script@v7
       if: always()
+      continue-on-error: true
       with:
         script: |
           const fs = require('fs');

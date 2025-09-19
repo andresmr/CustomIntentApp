@@ -33,7 +33,10 @@ jobs:
         distribution: 'temurin'
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
+      run: |
+        echo "Using GitHub Actions runner with pre-installed Android SDK"
+        echo "ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}" >> $GITHUB_ENV
+        echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}" >> $GITHUB_ENV
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
