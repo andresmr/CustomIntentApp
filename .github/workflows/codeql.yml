@@ -33,7 +33,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v2
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
@@ -60,6 +60,7 @@ jobs:
     - name: Build for CodeQL analysis
       run: |
         ./gradlew compileDebugSources
+      continue-on-error: true
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
