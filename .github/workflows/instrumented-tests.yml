@@ -21,6 +21,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
     - name: Cache Gradle packages
       uses: actions/cache@v4
       with:
@@ -33,6 +36,9 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+
+    - name: Validate Gradle Wrapper
+      uses: gradle/wrapper-validation-action@v2
 
     - name: Enable KVM group perms
       run: |
