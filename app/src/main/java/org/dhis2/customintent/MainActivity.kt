@@ -13,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import org.dhis2.customintent.ui.screen.IntentScreen
+import org.dhis2.customintent.ui.state.ExtraReturnType
 import org.dhis2.customintent.ui.theme.CustomIntentTheme
 import org.dhis2.customintent.ui.viewmodel.MainViewModel
 
@@ -25,8 +26,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         // Set up result callback
-        viewModel.setResultCallback { responseText ->
-            sendResponseToCallingApp(responseText)
+        viewModel.setResultCallback { responseText, returnType ->
+            sendResponseToCallingApp(responseText, returnType)
         }
 
         // Process the intent that started this activity
@@ -53,12 +54,54 @@ class MainActivity : ComponentActivity() {
         viewModel.processIntent(intent)
     }
 
-    private fun sendResponseToCallingApp(responseText: String) {
-        val resultIntent = Intent().apply {
-            putExtra("CUSTOM_RESPONSE", responseText)
-        }
-
-        setResult(RESULT_OK, resultIntent)
+    private fun sendResponseToCallingApp(responseText: String, responseType: ExtraReturnType) {
+        setResult(RESULT_OK, generateResponseIntent(responseText, responseType))
         finish()
+    }
+
+    private fun generateResponseIntent(
+        responseText: String,
+        responseType: ExtraReturnType
+    ) : Intent {
+        val resultIntent = Intent()
+        when (responseType) {
+            ExtraReturnType.STRING -> {
+                resultIntent.apply {
+                    putExtra("CUSTOM_STRING_RESPONSE", responseText)
+                }
+            }
+
+            ExtraReturnType.OBJECT -> {
+                resultIntent.apply {
+                    putExtra("CUSTOM_OBJECT_RESPONSE", responseText)
+                }
+            }
+
+            ExtraReturnType.LIST_OF_OBJECTS -> {
+                resultIntent.apply {
+                    putExtra("CUSTOM_LIST_OF_OBJECTS_RESPONSE", responseText)
+                }
+            }
+
+            ExtraReturnType.INTEGER -> {
+                resultIntent.apply {
+                    putExtra("CUSTOM_INTEGER_RESPONSE", responseText.toIntOrNull() ?: 0)
+                }
+            }
+
+            ExtraReturnType.FLOAT -> {
+                resultIntent.apply {
+                    putExtra("CUSTOM_FLOAT_RESPONSE", responseText.toFloatOrNull() ?: 0)
+                }
+            }
+
+            ExtraReturnType.BOOLEAN -> {
+                resultIntent.apply {
+                    putExtra("CUSTOM_BOOLEAN_RESPONSE", responseText.toBoolean())
+                }
+            }
+
+        }
+        return resultIntent
     }
 }
