@@ -20,6 +20,62 @@ The app acts as a text processing service that other applications can invoke. Wh
 3. Provides a text input field for the user to enter a response
 4. Returns the response data back to the calling application
 
+# CustomIntentApp Usage Guide
+
+## Package Name and Intent Action
+
+To interact with this app via an Intent, use the following:
+
+- **Package Name:** `com.dhis2.customintentapp`  
+  _(Replace with your actual package name if different)_
+- **Intent Action:**  
+  `com.dhis2.customintentapp.ACTION_PROCESS_RETURN_VALUE`
+
+## Intent Extras
+
+When sending an Intent to this app, you can provide the following extras:
+
+| Extra Key                 | Type    | Description                                               |
+|---------------------------|---------|-----------------------------------------------------------|
+| `EXTRA_RETURN_VALUE_TYPE` | String  | Specifies the return type expected.                       |
+| `boolean`                 | Boolean | (Optional) Used for validating recovering Boolean values. |
+| `string2`                 | String  | (Optional) for validating recovering String values.       |
+| `integer`                 | Integer | (Optional) for validating recovering Integer values.      |
+
+### Example Values for `EXTRA_RETURN_VALUE_TYPE`
+
+- `"ACTION_RETURN_STRING"`: Returns a string result.
+- `"ACTION_RETURN_INTEGER"`: Returns an integer result.
+- `"ACTION_RETURN_FLOAT"`: Returns a float result.
+- `"ACTION_RETURN_BOOLEAN"`: Returns a boolean result.
+- `"ACTION_RETURN_OBJECT"`: Returns an object result.
+- `"ACTION_RETURN_LIST_OF_OBJECTS"`: Returns a list of objects result.
+
+## Example Usage
+
+```kotlin
+val intent = Intent("com.dhis2.customintentapp.ACTION_PROCESS_RETURN_VALUE").apply {
+    putExtra("EXTRA_RETURN_VALUE_TYPE", "ACTION_RETURN_INTEGER")
+    putExtra("boolean", true) // Optional
+}
+startActivityForResult(intent, REQUEST_CODE)
+```
+
+## Receiving the Result
+
+The result will be returned in the `onActivityResult` callback, with the result in the Intent extras:
+
+| Extra Key                         | Type            | Description                                                  |
+|-----------------------------------|-----------------|--------------------------------------------------------------|
+| `CUSTOM_STRING_RESPONSE`          | String          | The result, type as requested in `EXTRA_RETURN_VALUE_TYPE`.  |
+| `CUSTOM_FLOAT_RESPONSE`           | Float           | The result, type as requested in `EXTRA_RETURN_VALUE_TYPE`.  |
+| `CUSTOM_INTEGER_RESPONSE`         | Integer         | The result, type as requested in `EXTRA_RETURN_VALUE_TYPE`.  |
+| `CUSTOM_BOOLEAN_RESPONSE`         | Boolean         | The result, type as requested in `EXTRA_RETURN_VALUE_TYPE`.  |
+| `CUSTOM_OBJECT_RESPONSE`          | JSON String     | The result, type as requested in `EXTRA_RETURN_VALUE_TYPE`.  |
+| `CUSTOM_LIST_OF_OBJECTS_RESPONSE` | List of objects | The result, type as requested in `EXTRA_RETURN_VALUE_TYPE`.  |
+
+---
+
 ## 🛠️ Technical Specifications
 
 - **Language**: Kotlin 2.2.0
