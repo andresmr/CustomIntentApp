@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/andresmr/CustomIntentApp/discussions
+    about: General questions and community discussions
+  - name: 🔒 Security Issue
+    url: https://github.com/andresmr/CustomIntentApp/security/advisories/new
+    about: Report security vulnerabilities privately

@@ -1,0 +1,84 @@
+# This file defines the labels that should exist in the repository
+# You can manually create these in GitHub or use a tool like github-label-sync
+
+labels:
+  # Type labels
+  - name: "bug"
+    color: "d73a4a"
+    description: "Something isn't working"
+
+  - name: "enhancement"
+    color: "a2eeef"
+    description: "New feature or request"
+
+  - name: "documentation"
+    color: "0075ca"
+    description: "Improvements or additions to documentation"
+
+  - name: "testing"
+    color: "7057ff"
+    description: "Related to testing"
+
+  - name: "ui"
+    color: "f9d0c4"
+    description: "User interface related"
+
+  - name: "performance"
+    color: "e4e669"
+    description: "Performance improvements"
+
+  - name: "security"
+    color: "b60205"
+    description: "Security related issues"
+
+  # Priority labels
+  - name: "priority: high"
+    color: "d93f0b"
+    description: "High priority"
+
+  - name: "priority: medium"
+    color: "fbca04"
+    description: "Medium priority"
+
+  - name: "priority: low"
+    color: "0e8a16"
+    description: "Low priority"
+
+  # Status labels
+  - name: "needs-triage"
+    color: "ededed"
+    description: "Needs initial review and categorization"
+
+  - name: "in-progress"
+    color: "cccccc"
+    description: "Currently being worked on"
+
+  - name: "blocked"
+    color: "b60205"
+    description: "Blocked by external dependency"
+
+  - name: "wontfix"
+    color: "ffffff"
+    description: "This will not be worked on"
+
+  # Component labels
+  - name: "dependencies"
+    color: "0366d6"
+    description: "Pull requests that update a dependency file"
+
+  - name: "ci/cd"
+    color: "f1c40f"
+    description: "Continuous Integration/Deployment related"
+
+  - name: "configuration"
+    color: "c2e0c6"
+    description: "Configuration changes"
+
+  # Good for newcomers
+  - name: "good first issue"
+    color: "7057ff"
+    description: "Good for newcomers"
+
+  - name: "help wanted"
+    color: "008672"
+    description: "Extra attention is needed"
