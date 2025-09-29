@@ -12,15 +12,7 @@ This document summarizes the comprehensive pull request checks and CI/CD pipelin
   - **Lint**: Runs Android lint checks and uploads results
 - **Features**: Gradle caching, test reporting, artifact uploads
 
-### 2. Instrumented Tests (`instrumented-tests.yml`)
-- **Triggers**: Push to main/develop, all PRs
-- **Features**:
-  - Android emulator setup (API 29)
-  - AVD caching for faster builds
-  - Hardware acceleration (KVM)
-  - Test result reporting and artifact uploads
-
-### 3. PR Validation (`pr-validation.yml`)
+### 2. PR Validation (`pr-validation.yml`)
 - **Triggers**: PR events (opened, synchronized, reopened)
 - **Comprehensive Checks**:
   - Code formatting validation
@@ -33,7 +25,7 @@ This document summarizes the comprehensive pull request checks and CI/CD pipelin
   - Automated PR commenting with validation summary
   - Trivy security scanning with SARIF upload
 
-### 4. Release Automation (`release.yml`)
+### 3. Release Automation (`release.yml`)
 - **Triggers**: Git tags (v*), GitHub releases
 - **Features**:
   - Version extraction from tags
@@ -42,14 +34,14 @@ This document summarizes the comprehensive pull request checks and CI/CD pipelin
   - GitHub release creation with template
   - APK upload to releases
 
-### 5. Security Analysis (`codeql.yml`)
+### 4. Security Analysis (`codeql.yml`)
 - **Triggers**: Push, PR, weekly schedule
 - **Features**:
   - CodeQL analysis for Java/Kotlin
   - Security and quality queries
   - SARIF result upload to GitHub Security tab
 
-### 6. Issue Management (`issue-triage.yml`)
+### 5. Issue Management (`issue-triage.yml`)
 - **Triggers**: Issue and PR creation/editing
 - **Features**:
   - Automatic labeling based on content
@@ -88,7 +80,6 @@ All PRs must pass these automated checks:
 - ✅ **Code Review**: Manual review by maintainers
 
 ### Optional but Recommended
-- 🧪 **Instrumented Tests**: UI/integration tests
 - 📚 **Documentation**: Updates if needed
 - 🎨 **Code Formatting**: Kotlin conventions compliance
 
