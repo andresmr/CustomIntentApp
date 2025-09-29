@@ -35,7 +35,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Validate Gradle Wrapper
-      uses: gradle/wrapper-validation-action@v2
+      uses: gradle/wrapper-validation-action@v3
 
     - name: Run unit tests
       run: ./gradlew test --continue --no-daemon
@@ -79,7 +79,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Validate Gradle Wrapper
-      uses: gradle/wrapper-validation-action@v2
+      uses: gradle/wrapper-validation-action@v3
 
     - name: Build with Gradle
       run: ./gradlew build --continue --no-daemon
@@ -123,7 +123,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Validate Gradle Wrapper
-      uses: gradle/wrapper-validation-action@v2
+      uses: gradle/wrapper-validation-action@v3
 
     - name: Run lint checks
       run: ./gradlew lint --continue --no-daemon
