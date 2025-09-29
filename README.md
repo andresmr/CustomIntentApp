@@ -215,21 +215,15 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 
 ## 🧪 Testing
 
-The project includes both unit and instrumented tests:
+The project includes unit tests:
 
 ### Run Unit Tests
 ```bash
 ./gradlew test
 ```
 
-### Run Instrumented Tests
-```bash
-./gradlew connectedAndroidTest
-```
-
 ### Test Files
 - `ExampleUnitTest.kt` - Basic unit test example
-- `ExampleInstrumentedTest.kt` - Basic instrumented test example
 
 ## 🚀 CI/CD & Quality Assurance
 
@@ -237,7 +231,7 @@ This project includes comprehensive CI/CD pipelines and quality checks:
 
 ### Automated Workflows
 - **🔄 Continuous Integration**: Runs tests and builds on every push/PR
-- **🧪 Unit & Instrumented Tests**: Automated testing on multiple Android versions  
+- **🧪 Unit Tests**: Automated unit testing to ensure code quality  
 - **🔍 Code Quality**: Lint checks, static analysis, and security scanning
 - **📦 Release Automation**: Automated APK building and GitHub releases
 - **🏷️ Auto-labeling**: Automatic issue and PR categorization
