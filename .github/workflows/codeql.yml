@@ -39,7 +39,7 @@ jobs:
         echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}" >> $GITHUB_ENV
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@v4
       with:
         languages: ${{ matrix.language }}
         queries: security-and-quality
@@ -63,7 +63,7 @@ jobs:
 
     # Use autobuild for better compatibility
     - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+      uses: github/codeql-action/autobuild@v4
       continue-on-error: true
       id: autobuild
 
@@ -80,7 +80,7 @@ jobs:
       continue-on-error: true
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@v4
       continue-on-error: true
       with:
         category: "/language:${{matrix.language}}"
