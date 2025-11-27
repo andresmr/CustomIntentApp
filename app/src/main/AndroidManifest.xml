@@ -22,8 +22,8 @@
             </intent-filter>
             <!-- Custom intent filter to trigger the app when intent is called -->
             <intent-filter>
-                <action android:name="org.dhis2.customintent.<CUSTOM_INTENT_ACTION>"  />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="org.dhis2.customintent.ACTION_PROCESS_RETURN_VALUE"  />
+                <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
