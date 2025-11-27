@@ -18,24 +18,31 @@ class MainViewModel : ViewModel() {
 
     fun processIntent(intent: Intent?) {
         try {
-           val intentReturnType = getExtraReturnType( intent?.getStringExtra("EXTRA_RETURN_VALUE_TYPE")) ?: ExtraReturnType.STRING
+            // For our use case we wanted to validate that the capture app could recover different data types so we configured a
+            // custom intent request parameter to indicate the expected return type which we will  use to
+            // generate a default response that we will pass on to the ui state to be displayed and sent back to the calling app
+            val intentReturnType = getExtraReturnType( intent?.getStringExtra("EXTRA_RETURN_VALUE_TYPE")) ?: ExtraReturnType.STRING
+
+            // Here we process the incoming intent based on its action
             val receivedText = when (intent?.action) {
+                PROCESS_RETURN_VALUE_ACTION-> {
+                    // Example of processing received extras of different types
+                    intent.getStringExtra(Intent.EXTRA_TEXT) + "\n" +
+                    intent.getBooleanExtra("boolean", false) + "\n" +
+                    intent.getIntExtra("integer", 0) + "\n" +
+                    intent.getStringExtra("string2")
+                }
+
                 Intent.ACTION_SEND -> {
                     if (intent.type == "text/plain") {
                         intent.getStringExtra(Intent.EXTRA_TEXT)
                     } else null
                 }
 
-                PROCESS_RETURN_VALUE_ACTION-> {
-                    intent.getStringExtra(Intent.EXTRA_TEXT) + "\n" +
-                            intent.getBooleanExtra("boolean", false) + "\n" +
-                            intent.getIntExtra("integer", 0) + "\n" +
-                            intent.getStringExtra("string2")
-                }
-
                 else -> null
             }
 
+            // Update UI state with received data and default response
             _uiState.value = IntentUiState.Success(
                 receivedText = receivedText,
                 responseText = generateDefaultResponse(intentReturnType),
@@ -79,7 +86,6 @@ class MainViewModel : ViewModel() {
 
             else -> {
                 ExtraReturnType.STRING
-
             }
         }
     }
@@ -107,6 +113,7 @@ class MainViewModel : ViewModel() {
     }
 
     private fun generateDefaultResponse(responseType: ExtraReturnType): String {
+        // Generate default response based on the expected return type
         return when (responseType) {
             ExtraReturnType.STRING -> STRING_RETURN_VALUE
             ExtraReturnType.INTEGER -> INTEGER_RETURN_VALUE.toString()
@@ -124,13 +131,13 @@ class MainViewModel : ViewModel() {
         const val RETURN_FLOAT_INTENT_ACTION = "ACTION_RETURN_FLOAT"
         const val RETURN_BOOLEAN_INTENT_ACTION = "ACTION_RETURN_BOOLEAN"
         const val RETURN_OBJECT_INTENT_ACTION = "ACTION_RETURN_OBJECT"
-        const val RETURN_LIST_OF_OBJECTS_INTENT_ACTION = "org.dhis2.customintent.ACTION_RETURN_LIST_OF_OBJECTS"
+        const val RETURN_LIST_OF_OBJECTS_INTENT_ACTION = "ACTION_RETURN_LIST_OF_OBJECTS"
         const val OBJECT_RETURN_VALUE = "{\"value1\": \"ejemplo1\", \"value2\": \"ejemplo2\"}"
         const val STRING_RETURN_VALUE = "string sample response"
         const val BOOLEAN_RETURN_VALUE = true
         const val FLOAT_RETURN_VALUE = 0.5f
         const val INTEGER_RETURN_VALUE = 9
         const val LIST_OF_OBJECTS_RETURN_VALUE =
-            "{\"value1\": \"ejemplo1\", \"value2\": \"ejemplo2\"},{\"value3\": \"ejemplo3\", \"value4\": \"ejemplo4\"}"
+            "{\"value1\": \"ejemplo1\", \"value2\": \"ejemplo2\"},{\"value1\": \"ejemplo3\", \"value2\": \"ejemplo4\"}"
     }
 }

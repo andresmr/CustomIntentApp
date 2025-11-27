@@ -54,11 +54,13 @@ class MainActivity : ComponentActivity() {
         viewModel.processIntent(intent)
     }
 
+    // Function to send the response back to the calling application
     private fun sendResponseToCallingApp(responseText: String, responseType: ExtraReturnType) {
         setResult(RESULT_OK, generateResponseIntent(responseText, responseType))
         finish()
     }
 
+    // Function to generate the response intent based on the specified return type
     private fun generateResponseIntent(
         responseText: String,
         responseType: ExtraReturnType

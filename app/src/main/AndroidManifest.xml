@@ -18,11 +18,11 @@
             android:theme="@style/Theme.CustomIntent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Custom intent filter to trigger the app when intent is called -->
             <intent-filter>
-                <action android:name="org.dhis2.customintent.ACTION_PROCESS_RETURN_VALUE"  />
+                <action android:name="org.dhis2.customintent.<CUSTOM_INTENT_ACTION>"  />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
