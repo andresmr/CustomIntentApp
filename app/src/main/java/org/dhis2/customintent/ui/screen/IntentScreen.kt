@@ -59,7 +59,7 @@ fun IntentScreen(
 
             is IntentUiState.Success -> {
                 SuccessContent(
-                    receivedText = uiState.receivedText,
+                    receivedText = uiState.receivedValues,
                     responseText = uiState.responseText,
                     onResponseTextChange = { onEvent(IntentUiEvent.UpdateResponseText(it)) },
                     onSendResponse = { onEvent(IntentUiEvent.SendResponse) }
@@ -85,7 +85,7 @@ private fun SuccessContent(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "Received Text:",
+                    text = "Received Values:",
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -111,8 +111,9 @@ private fun SuccessContent(
             )
         }
     }
-
-    // Response text input
+    // Response text input field
+    // Used to enter text to send back to the calling application
+    // TODO Replace with your component as needed, e.g., a dropdown for predefined responses, scan feature etc.
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(

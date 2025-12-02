@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <!-- Custom intent filter to trigger the app when intent is called -->
+            <!-- TODO Replace <CUSTOM_INTENT_ACTION> with your action -->
             <intent-filter>
                 <action android:name="org.dhis2.customintent.<CUSTOM_INTENT_ACTION>"  />
                 <category android:name="android.intent.category.DEFAULT" />
