@@ -19,3 +19,12 @@ sealed class IntentUiEvent {
     data class UpdateResponseText(val text: String) : IntentUiEvent()
     object SendResponse : IntentUiEvent()
 }
+
+enum class ExtraReturnType {
+    STRING,
+    INTEGER,
+    FLOAT,
+    BOOLEAN,
+    OBJECT,
+    LIST_OF_OBJECTS,
+}
