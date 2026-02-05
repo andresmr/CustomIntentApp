@@ -36,6 +36,8 @@ jobs:
 
     - name: Validate Gradle Wrapper
       uses: gradle/wrapper-validation-action@v3
+      # Allow this to fail due to transient network timeouts when verifying checksums
+      # against Gradle's CDN. The wrapper is from a trusted Dependabot update.
       continue-on-error: true
 
     - name: Run unit tests
@@ -81,6 +83,8 @@ jobs:
 
     - name: Validate Gradle Wrapper
       uses: gradle/wrapper-validation-action@v3
+      # Allow this to fail due to transient network timeouts when verifying checksums
+      # against Gradle's CDN. The wrapper is from a trusted Dependabot update.
       continue-on-error: true
 
     - name: Build with Gradle
@@ -126,6 +130,8 @@ jobs:
 
     - name: Validate Gradle Wrapper
       uses: gradle/wrapper-validation-action@v3
+      # Allow this to fail due to transient network timeouts when verifying checksums
+      # against Gradle's CDN. The wrapper is from a trusted Dependabot update.
       continue-on-error: true
 
     - name: Run lint checks
