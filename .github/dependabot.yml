@@ -38,3 +38,6 @@ updates:
       prefix: "ci"
       include: "scope"
     open-pull-requests-limit: 3
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
