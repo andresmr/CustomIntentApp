@@ -23,6 +23,9 @@ jobs:
 
     - run: chmod +x gradlew
 
+    - name: Install Android SDK platform 36
+      run: ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager "platforms;android-36"
+
     - name: Run tests, lint and build
       run: ./gradlew test lint assembleDebug --no-daemon
 
